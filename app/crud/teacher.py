@@ -5,14 +5,12 @@ from app.models import Teacher
 from app.schemas.teacher import TeacherCreate, TeacherUpdate
 
 
-# Функция для получения всех учителей
 async def get_teachers(db: AsyncSession, skip: int = 0, limit: int = 100):
     async with db.begin():
         result = await db.execute(select(Teacher).offset(skip).limit(limit))
         return result.scalars().all()
 
 
-# Функция для получения учителя по ID
 async def get_teacher(db: AsyncSession, teacher_id: int):
     async with db.begin():
         result = await db.execute(
@@ -21,7 +19,6 @@ async def get_teacher(db: AsyncSession, teacher_id: int):
         return result.scalar_one_or_none()
 
 
-# Функция для создания нового учителя
 async def create_teacher(db: AsyncSession, teacher: TeacherCreate):
     db_teacher = Teacher(
         first_name=teacher.first_name,
@@ -35,7 +32,6 @@ async def create_teacher(db: AsyncSession, teacher: TeacherCreate):
     return db_teacher
 
 
-# Функция для обновления информации о teacher
 async def update_teacher(
     db: AsyncSession, teacher_id: int, teacher: TeacherUpdate
 ):
@@ -51,7 +47,6 @@ async def update_teacher(
     return None
 
 
-# Функция для удаления учителя
 async def delete_teacher(db: AsyncSession, teacher_id: int):
     db_teacher = await get_teacher(db, teacher_id)
     if db_teacher:

@@ -11,7 +11,6 @@ from app.database.session import get_db
 router = APIRouter(prefix="/disciplines", tags=["disciplines"])
 
 
-# Роут для получения всех дисциплин
 @router.get("/disciplines", response_model=list[DisciplineInDB])
 async def get_disciplines(
     skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
@@ -22,7 +21,6 @@ async def get_disciplines(
     return disciplines
 
 
-# Роут для получения дисциплины по ID
 @router.get("/disciplines/{discipline_id}", response_model=DisciplineInDB)
 async def get_discipline(
     discipline_id: int, db: AsyncSession = Depends(get_db)
@@ -33,7 +31,6 @@ async def get_discipline(
     return discipline
 
 
-# Роут для создания новой дисциплины
 @router.post("/disciplines", response_model=DisciplineInDB)
 async def create_discipline(
     discipline: DisciplineCreate, db: AsyncSession = Depends(get_db)
@@ -42,7 +39,6 @@ async def create_discipline(
     return db_discipline
 
 
-# Роут для обновления дисциплины
 @router.put("/disciplines/{discipline_id}", response_model=DisciplineInDB)
 async def update_discipline(
     discipline_id: int,
@@ -57,7 +53,6 @@ async def update_discipline(
     return db_discipline
 
 
-# Роут для удаления дисциплины
 @router.delete("/disciplines/{discipline_id}", response_model=DisciplineInDB)
 async def delete_discipline(
     discipline_id: int, db: AsyncSession = Depends(get_db)

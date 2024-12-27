@@ -9,6 +9,5 @@ async def drop_tables():
     print("All tables dropped.")
 
 
-# Запуск
 if __name__ == "__main__":
     asyncio.run(drop_tables())
